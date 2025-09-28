@@ -33,7 +33,7 @@ uploads/
 *.db3
 
 # --- Credentials (service accounts, keys) ---
-credentials/
+secrets/
 *.pem
 *.key
 *.pfx
