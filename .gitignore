@@ -1,0 +1,39 @@
+# --- Node / JS ---
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# --- Environment secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Build / Coverage / Cache ---
+dist/
+build/
+coverage/
+.cache/
+
+# --- OS / Editor junk ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Logs ---
+logs/
+*.log
+
+# --- Local DB / Uploads (app data) ---
+data/
+uploads/
+*.sqlite
+*.db
+*.db3
+
+# --- Credentials (service accounts, keys) ---
+credentials/
+*.pem
+*.key
+*.pfx

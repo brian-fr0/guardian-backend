@@ -1,0 +1,11 @@
+services:
+  web:
+    build: .
+    ports:
+      - "2699:2699"
+    volumes:
+      - guardian_db:/app/data
+      - guardian_uploads:/app/uploads
+volumes:
+  guardian_db:
+  guardian_uploads:

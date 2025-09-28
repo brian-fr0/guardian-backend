@@ -1,0 +1,1854 @@
+openapi: 3.0.1
+info:
+  title: Guardian
+  version: 0.1.0
+  description: Guardian API docs
+  contact:
+    email: contact.tharudealwis@gmail.com
+
+servers:
+  - url: http://localhost:2699/api/v1
+    description: Local development server
+
+tags:
+  - name: Auth
+    description: Authentication endpoints
+  - name: Reports
+    description: Reports endpoints
+  - name: MapBox
+    description: MapBox endpoints
+  - name: Lost Articles
+    description: Lost Articles endpoints
+  - name: Files
+    description: Files endpoints
+  - name: Alerts
+    description: Alerts endpoints
+  - name: Notes
+    description: Notes endpoints
+  - name: Dialogflow
+    description: Dialogflow endpoints
+  - name: MFA
+    description: MFA endpoints
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login user
+      operationId: login
+      description: |
+        Allows the user to login
+
+        `200` can also respond with:
+
+        ```json
+          {
+            "status": "success",
+            "data": {
+              "mfa_token": "e1d46-e59c-4d83-a556-5a16c1876d1c"
+            },
+            "message": "mfa_required"
+          }
+        ```
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: johndoe
+                password:
+                  type: string
+                  example: password
+      responses:
+        "200":
+          description: User login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginSuccessResponse"
+          headers:
+            Set-Cookie:
+              schema:
+                type: array
+                items:
+                  type: string
+                example:
+                  - "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9; Path=/; HttpOnly"
+                  - "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9; Path=/; HttpOnly"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ZodErrorResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register new user
+      operationId: register
+      description: >
+        Allows the user to register a citizen account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "johnsmith1988"
+                password:
+                  type: string
+                  example: "examplepassword"
+                email:
+                  type: string
+                  example: jane@example.com
+                first_name:
+                  type: string
+                  example: "John"
+                last_name:
+                  type: string
+                  example: "Smith"
+      responses:
+        "204":
+          description: User registered successfully
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ZodErrorResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout a user
+      operationId: logout
+      description: >
+        Allows the user to logout of their account
+      security:
+        - bearerAuth: []
+        - refreshToken: []
+      responses:
+        "204":
+          description: Logged out successfully
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /auth/logout-all:
+    post:
+      tags:
+        - Auth
+      summary: Logout a user from all devices
+      operationId: logoutAll
+      description: >
+        Allows the user to logout from all devices that have a valid access/refresh token
+      security:
+        - bearerAuth: []
+        - refreshToken: []
+      responses:
+        "204":
+          description: Logged out from devices successfully
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+  /auth/refresh:
+    post:
+      tags:
+        - Auth
+      summary: Refresh access token
+      operationId: refreshTokens
+      description: >
+        Refreshes the users access and refresh tokens
+      security:
+        - bearerAuth: []
+        - refreshToken: []
+      responses:
+        "200":
+          description: Tokens refreshed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginSuccessResponse"
+          headers:
+            Set-Cookie:
+              schema:
+                type: array
+                items:
+                  type: string
+                example:
+                  - "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9; Path=/; HttpOnly"
+                  - "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9; Path=/; HttpOnly"
+
+        "400":
+          description: User is authenticated, but refresh token is missing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RefreshMissingTokenResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+  /auth/profile:
+    get:
+      tags:
+        - Auth
+      summary: Get users profile
+      operationId: getUserProfile
+      description: >
+        Gets the users profile
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Returned user profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProfileResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /auth/is-authed:
+    get:
+      tags:
+        - Auth
+      summary: Get is user authed
+      operationId: isUserAuthed
+      description: >
+        Checks if the user has a valid access token
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: User is authed
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /reports:
+    get:
+      tags:
+        - Reports
+      summary: Get all reports
+      operationId: getAllReports
+      description: >
+        If user is a officer, returns all reports
+        If user is a citizen, only returns their own reports
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Returns all reports belonging to user or all if user is officer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetAllReportsResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+    post:
+      tags:
+        - Reports
+      summary: Upload new report
+      operationId: createReport
+      description: >
+        Creates a new report
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: "example description"
+                longitude:
+                  type: number
+                  example: 4
+                latitude:
+                  type: number
+                  example: 2.3
+                photos:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        "200":
+          description: Returns created report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReportResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /reports/{reportId}:
+    get:
+      tags:
+        - Reports
+      summary: Get report by id
+      operationId: getReportById
+      description: >
+        Get the report by it's ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: reportId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the report to get
+      responses:
+        "200":
+          description: Returns found report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReportResponse"
+        "404":
+          description: No found report
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /reports/witness/{reportId}:
+    post:
+      tags:
+        - Reports
+      summary: Add witness to the report
+      operationId: addReportWitness
+      description: >
+        Add a witness to a report
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: reportId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the report to modify
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: "John"
+                last_name:
+                  type: string
+                  example: "Smith"
+                date_of_birth:
+                  type: string
+                  example: "2025-09-24"
+                contact_number:
+                  type: string
+                  example: "(02) 1234 5678"
+      responses:
+        "200":
+          description: Returns created witness
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WitnessResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+  /reports/witness/{reportId}/{witnessId}:
+    delete:
+      tags:
+        - Reports
+      summary: Allows officers to delete report witnesses
+      operationId: deleteReportWitness
+      description: >
+        Delete a witness from a report
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: reportId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the report to modify
+        - in: path
+          name: witnessId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the witness to delete
+
+      responses:
+        "204":
+          description: Deleted Confirmation
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /reports/update-status/{reportId}:
+    patch:
+      tags:
+        - Reports
+      summary: Update report stauts by id
+      operationId: updateReportStatus
+      description: >
+        Allows officers to update a reports status
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: reportId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the report to modify
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: "IN-PROGRESS"
+      responses:
+        "200":
+          description: Returns modified report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReportResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /reports/delete/{reportId}:
+    delete:
+      tags:
+        - Reports
+      summary: Delete report by id
+      operationId: deleteReport
+      description: >
+        Deletes a report
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: reportId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the report to modify
+
+      responses:
+        "204":
+          description: Deleted Confirmation
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /mapbox/token:
+    get:
+      tags:
+        - MapBox
+      summary: Get MapBox token
+      operationId: getMapBoxToken
+      description: >
+        Gets the MapBox Token
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Returns MapBox token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MapBoxTokenResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /lost-articles:
+    post:
+      tags:
+        - Lost Articles
+      summary: Create lost article
+      operationId: createLostArticle
+      description: >
+        Creates a lost article
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LostArticlePost"
+      responses:
+        "200":
+          description: Returns created lost article
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LostArticleResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+  /lost-articles/{lostArticleId}:
+    get:
+      tags:
+        - Lost Articles
+      summary: Get lost article by id
+      operationId: getLostArticle
+      description: >
+        Gets a lost article report
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: lostArticleId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the lost article to modify
+      responses:
+        "200":
+          description: Returns lost article
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LostArticleResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+    delete:
+      tags:
+        - Lost Articles
+      summary: Delete lost article
+      operationId: deleteLostArticle
+      description: >
+        Deletes the lost article report
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: lostArticleId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the lost article to delete
+      responses:
+        "204":
+          description: Deletion confirmed
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /lost-articles/personal-details/{lostArticleId}:
+    post:
+      tags:
+        - Lost Articles
+      summary: Add personal details to a article by id
+      operationId: addLostArticlePersonalDetails
+      description: >
+        Adds personal details to a lost article for later identification
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: lostArticleId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the lost article to modify
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PersonalDetailsPost"
+      responses:
+        "200":
+          description: Returns created lost article
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PersoanlDetailsResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /lost-articles/personal-details/{lostArticleId}/{personalDetailsId}:
+    delete:
+      tags:
+        - Lost Articles
+      summary: Delete personal details to a article by id
+      operationId: deleteLostArticlePersonalDetails
+      description: >
+        Delete the personal details from a lost article report
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: lostArticleId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the lost article to modify
+        - in: path
+          name: personalDetailsId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the personal details to delete
+      responses:
+        "204":
+          description: Deleted Confirmation
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /lost-articles/all:
+    get:
+      tags:
+        - Lost Articles
+      summary: Get all lost articles
+      operationId: getAllLostArticles
+      description: >
+        If user is a officer, returns all lost article reports
+        If user is a citizen, returns their own lost article reports
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Returns all lost articles
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllLostArticlesResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /files:
+    get:
+      tags:
+        - Files
+      summary: Get file with token
+      operationId: getFile
+      description: >
+        Gets a file using a provided file access token
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: token
+          schema:
+            type: string
+            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+          description: The token to allow access of the file
+      responses:
+        "200":
+          description: The image returned
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /alerts:
+    get:
+      tags:
+        - Alerts
+      summary: Get all alerts
+      operationId: getAllAlerts
+      description: >
+        Gets all alerts
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: number
+            example: 1
+          description: >
+            This is the offset from the limit.
+
+            When the limit is `20` and the page is `1` it will
+            fetch results starting at row `21` upto `40`.
+            <br>
+            To calculate the offset we do `LIMIT * PAGE = 20 * 1 = 20`
+            <br>
+            <br>
+            [More Info](https://www.sqlitetutorial.net/sqlite-limit/)
+      responses:
+        "200":
+          description: Returns all active alerts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllAlertsResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+    post:
+      tags:
+        - Alerts
+      summary: Add new alert
+      operationId: createAlert
+      description: >
+        Allows a officer to create a new alert
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertPost"
+      responses:
+        "200":
+          description: Returns the created alert
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlertResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /alerts/{alertId}:
+    get:
+      tags:
+        - Alerts
+      summary: Get a alert by ID
+      operationId: getAlertById
+      description: >
+        Gets a alert by id
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: alertId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the alert
+      responses:
+        "200":
+          description: Returns the found alert
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlertResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+    delete:
+      tags:
+        - Alerts
+      summary: Delete a alert
+      operationId: deleteAlert
+      description: >
+        Allows a officer to delete a alert
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: alertId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the alert
+      responses:
+        "204":
+          description: Deletion confirmation
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /notes/resource/{resourceId}:
+    post:
+      tags:
+        - Notes
+      summary: Create a note for a resource
+      operationId: createNote
+      description: >
+        Create a note for a resource
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: resourceId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NotePost"
+      responses:
+        "200":
+          description: Returns the created note
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NoteResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+    get:
+      tags:
+        - Notes
+      summary: Get all notes for a resource ID
+      operationId: getResourceNote
+      description: >
+        Get all notes for a resource
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: resourceId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the resource
+        - in: query
+          name: resourceType
+          schema:
+            type: string
+            example: report
+          required: true
+          description: String value that represents either `report` or `lost-article`
+      responses:
+        "200":
+          description: Returns all the notes for a resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllNotesResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+  /notes/{noteId}:
+    get:
+      tags:
+        - Notes
+      summary: Get a note
+      operationId: getNote
+      description: >
+        Get a note by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: noteId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the note
+      responses:
+        "200":
+          description: Returns the note found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NoteResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+    patch:
+      tags:
+        - Notes
+      summary: Update a note by ID
+      operationId: updateNote
+      description: >
+        Update a note by it's ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: noteId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the note
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NotePost"
+      responses:
+        "200":
+          description: Returns the updated note
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NoteResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+    delete:
+      tags:
+        - Notes
+      summary: Delete a note
+      operationId: deleteNote
+      description: >
+        Delete a note by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: noteId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the note
+      responses:
+        "204":
+          description: Deletion confirmation
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+  /dialogflow/chat:
+    post:
+      tags:
+        - Dialogflow
+      summary: Send a chat to dialogflow
+      operationId: chatBotSendMessage
+      description: >
+        Allows the user to send a chat message to the chatbot
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Dialogflow"
+      responses:
+        "200":
+          description: Returns the dialogflow response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DialogflowResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+  /mfa/resend-code:
+    post:
+      tags:
+        - MFA
+      summary: Request MFA code
+      operationId: mfaRequestCode
+      description: >
+        Allows the user who has entered valid credentials to request a MFA code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MFARequest"
+      responses:
+        "200":
+          description: The code has been created and sent to email
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MFAResendResponse"
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+  /mfa/verify-code:
+    post:
+      tags:
+        - MFA
+      summary: Request MFA code
+      operationId: mfaVerifyCode
+      description: >
+        Allows the user to verify the 2FA code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MFAVerifyRequest"
+      responses:
+        "204":
+          description: The code was verified
+        "401":
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalErrorResponse"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    refreshToken:
+      type: apiKey
+      in: header
+      name: refresh-token
+
+  responses:
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/InternalErrorResponse"
+
+  schemas:
+    Response:
+      type: object
+      required:
+        - status
+        - data
+        - message
+      properties:
+        status:
+          type: string
+          example: "success"
+        data:
+          type: object
+          description: The response data
+        message:
+          type: string
+          example: ""
+    Tokens:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+        refreshToken:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    Dialogflow:
+      type: object
+      properties:
+        text:
+          type: string
+          example: "How do I add a report?"
+        languageCode:
+          type: string
+          example: "en"
+        sessionId:
+          type: string
+          example: 162e1d46-e59c-4d83-a556-5a16c1876d1c
+      required:
+        - text
+        - languageCode
+    DialogflowChat:
+      type: object
+      properties:
+        intent:
+          type: string
+          example: "FAQ - Attach Photos"
+        confidence:
+          type: number
+          example: 0.7
+        text:
+          type: string
+          example: 'To attach a photo, open the "Report Incident" form and select "Add Photo".'
+        sessionId:
+          type: string
+          example: dfe27943-32bd-4379-97b6-79b5b4fb8fba
+      required:
+        - text
+        - languageCode
+    MapBoxToken:
+      type: object
+      properties:
+        token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: john_smith1988
+        email:
+          type: string
+          example: john_smith1988@email.com
+        first_name:
+          type: string
+          example: John
+        last_name:
+          type: string
+          example: Smith
+        created_at:
+          type: string
+          format: date
+    Report:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: "example description"
+        longitude:
+          type: number
+          example: 44.4
+        latitude:
+          type: number
+          example: 33.2
+        user_id:
+          type: integer
+          example: 1
+        status:
+          type: string
+          example: "PENDING"
+        priority:
+          type: number
+          example: 0.4
+        witnesses:
+          type: array
+          items:
+            $ref: "#/components/schemas/PersonalDetails"
+        images:
+          type: array
+          items:
+            type: string
+            example: "44f7d9e1-0e90-460c-8671-d9ad8479dd0c"
+        created_at:
+          type: string
+          format: date
+    Witness:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: "John"
+        last_name:
+          type: string
+          example: "Smith"
+        date_of_birth:
+          type: string
+          example: "2025-09-24"
+        contact_number:
+          type: string
+          example: "(02) 1234 5678"
+        report_id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date
+    LostArticle:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Phone 44"
+        description:
+          type: string
+          example: "Lost article description"
+        serial_number:
+          type: string
+          example: "xxxxxx"
+        color:
+          type: string
+          example: "red"
+        model:
+          type: string
+          example: "PHONE_X44"
+        longitude:
+          type: number
+          example: 44.4
+        latitude:
+          type: number
+          example: 33.2
+        status:
+          type: string
+          example: "CLAIMED"
+        branch:
+          type: string
+          example: "Some Station"
+        user_id:
+          type: number
+          example: 1
+        personal_details:
+          type: array
+          items:
+            $ref: "#/components/schemas/PersonalDetails"
+        created_at:
+          type: string
+          format: date
+    LostArticlePost:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Phone 44"
+        description:
+          type: string
+          example: "Lost article description"
+        serial_number:
+          type: string
+          example: "xxxxxx"
+        color:
+          type: string
+          example: "red"
+        model:
+          type: string
+          example: "PHONE_X44"
+        longitude:
+          type: number
+          example: 44.4
+        latitude:
+          type: number
+          example: 33.2
+        status:
+          type: string
+          example: "CLAIMED"
+        branch:
+          type: string
+          example: "Some Station"
+    PersonalDetails:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        first_name:
+          type: string
+          example: "John"
+        last_name:
+          type: string
+          example: "Smith"
+        date_of_birth:
+          type: string
+          example: "2025-09-24"
+        contact_number:
+          type: string
+          example: "(02) 1234 5678"
+        lost_article_id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date
+    PersonalDetailsPost:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: "John"
+        last_name:
+          type: string
+          example: "Smith"
+        date_of_birth:
+          type: string
+          example: "2025-09-24"
+        contact_number:
+          type: string
+          example: "(02) 1234 5678"
+    Alert:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "example alert title"
+        description:
+          type: string
+          example: "example alert description"
+        type:
+          type: string
+          example: "Missing Person"
+        created_at:
+          type: string
+          format: date
+    AlertPost:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "example alert title"
+        description:
+          type: string
+          example: "example alert description"
+        type:
+          type: string
+          example: "Missing Person"
+    Note:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        subject:
+          type: string
+          example: "example subject"
+        content:
+          type: string
+          example: "example note content"
+        resource_id:
+          type: integer
+          example: 1
+        resource_type:
+          type: string
+          example: report
+        created_at:
+          type: string
+          format: date
+    NotePost:
+      type: object
+      properties:
+        subject:
+          type: string
+          example: "example subject"
+        content:
+          type: string
+          example: "example note content"
+
+    MFARequest:
+      type: object
+      properties:
+        mfa_token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    MFAResendResponse:
+      type: object
+      properties:
+        mfa_token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    MFAVerifyRequest:
+      type: object
+      properties:
+        mfa_token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+        code:
+          type: string
+          example: "445543"
+
+    ZodError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: ""
+        data:
+          type: object
+          properties:
+            errors:
+              type: array
+              items:
+                type: string
+                example: 'Unrecognized key: "extraKey"'
+            properties:
+              type: object
+              properties:
+                username:
+                  type: object
+                  properties:
+                    errros:
+                      type: array
+                      items:
+                        type: string
+                        example: "Invalid input: expected string, received integer"
+
+    LoginSuccessResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Tokens"
+    RefreshMissingTokenResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            message:
+              type: string
+              example: "missing refresh token"
+            status:
+              type: string
+              example: "error"
+    ProfileResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/User"
+    GetAllReportsResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/Report"
+    ReportResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Report"
+    WitnessResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Witness"
+    MapBoxTokenResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/MapBoxToken"
+    LostArticleResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/LostArticle"
+    PersoanlDetailsResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/PersonalDetails"
+    AllLostArticlesResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/PersonalDetails"
+    AlertResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Alert"
+    AllAlertsResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/Alert"
+    NoteResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Note"
+    AllNotesResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/Note"
+    DialogflowResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/DialogflowChat"
+    ZodErrorResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/ZodError"
+            status:
+              type: string
+              example: "error"
+    UnauthorizedErrorResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            status:
+              type: string
+              example: "error"
+            data:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: ""
+                data:
+                  type: object
+                  example: {}
+    InternalErrorResponse:
+      allOf:
+        - $ref: "#/components/schemas/Response"
+        - type: object
+          properties:
+            message:
+              type: string
+              example: Internal Server Error
+            status:
+              type: string
+              example: "error"

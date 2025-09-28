@@ -1,0 +1,1446 @@
+[
+  {
+    "text": "Everything looks normal here, just people walking around",
+    "priority": 0.05
+  },
+  {
+    "text": "Quiet day, nothing unusual to report",
+    "priority": 0.1
+  },
+  {
+    "text": "Regular foot traffic, all seems well",
+    "priority": 0.08
+  },
+  {
+    "text": "I think I might have seen something but I'm not sure",
+    "priority": 0.2
+  },
+  {
+    "text": "Someone dropped something and picked it up, probably nothing",
+    "priority": 0.15
+  },
+  {
+    "text": "There's a person acting a bit strange but might just be lost",
+    "priority": 0.25
+  },
+  {
+    "text": "I think I saw someone with something in their hand, not certain what it was",
+    "priority": 0.3
+  },
+  {
+    "text": "Person seems agitated, pacing back and forth",
+    "priority": 0.35
+  },
+  {
+    "text": "Someone is shouting but I can't make out what they're saying",
+    "priority": 0.4
+  },
+  {
+    "text": "There's a suspicious person nearby looking around nervously",
+    "priority": 0.42
+  },
+  {
+    "text": "Group of people gathered, seems like an argument",
+    "priority": 0.45
+  },
+  {
+    "text": "I can see someone holding what might be a weapon",
+    "priority": 0.6
+  },
+  {
+    "text": "Person is threatening others verbally",
+    "priority": 0.55
+  },
+  {
+    "text": "Someone is clearly carrying a knife in their hand",
+    "priority": 0.7
+  },
+  {
+    "text": "There's an active confrontation happening between two people",
+    "priority": 0.65
+  },
+  {
+    "text": "Person with a weapon is approaching others aggressively",
+    "priority": 0.8
+  },
+  {
+    "text": "I can see someone threatening people with a blade",
+    "priority": 0.85
+  },
+  {
+    "text": "Someone has been attacked, I can see blood",
+    "priority": 0.9
+  },
+  {
+    "text": "Active violence happening right now, person stabbing someone",
+    "priority": 0.95
+  },
+  {
+    "text": "Multiple people injured, attacker still active with weapon",
+    "priority": 1.0
+  },
+  {
+    "text": "Emergency services needed immediately, ongoing attack",
+    "priority": 1.0
+  },
+  {
+    "text": "I heard what sounded like a scream but it might have been kids playing",
+    "priority": 0.28
+  },
+  {
+    "text": "Someone ran past very quickly, seemed panicked",
+    "priority": 0.38
+  },
+  {
+    "text": "A person is following someone else closely, makes me uncomfortable",
+    "priority": 0.48
+  },
+  {
+    "text": "I can hear people arguing loudly, getting heated",
+    "priority": 0.5
+  },
+  {
+    "text": "Someone just pushed another person, looks like it might escalate",
+    "priority": 0.58
+  },
+  {
+    "text": "Physical fight breaking out between two individuals",
+    "priority": 0.68
+  },
+  {
+    "text": "Person is waving a knife around, people are backing away",
+    "priority": 0.78
+  },
+  {
+    "text": "Someone just got stabbed, attacker is still here with weapon",
+    "priority": 0.92
+  },
+  {
+    "text": "Multiple victims on the ground, armed person still threatening others",
+    "priority": 0.98
+  },
+  {
+    "text": "All clear, situation resolved, everyone safe",
+    "priority": 0.02
+  },
+  {
+    "text": "False alarm, it was just someone helping another person up",
+    "priority": 0.12
+  },
+  {
+    "text": "Thought I saw something concerning but it turned out to be nothing",
+    "priority": 0.18
+  },
+  {
+    "text": "Person was just carrying groceries, not a weapon",
+    "priority": 0.22
+  },
+  {
+    "text": "The shouting I heard was just someone calling to a friend",
+    "priority": 0.32
+  },
+  {
+    "text": "Situation seems tense but no immediate danger visible",
+    "priority": 0.43
+  },
+  {
+    "text": "Person appears to have some kind of tool or implement",
+    "priority": 0.52
+  },
+  {
+    "text": "Someone is brandishing what looks like a kitchen knife",
+    "priority": 0.72
+  },
+  {
+    "text": "Weapon visible, person making threatening gestures toward crowd",
+    "priority": 0.82
+  },
+  {
+    "text": "Attack in progress, victim down, need immediate help",
+    "priority": 0.94
+  },
+  {
+    "text": "Beautiful day, people enjoying the sunshine peacefully",
+    "priority": 0.03
+  },
+  {
+    "text": "Just regular commuters heading to work, nothing out of the ordinary",
+    "priority": 0.06
+  },
+  {
+    "text": "Children playing in the park, parents watching nearby",
+    "priority": 0.04
+  },
+  {
+    "text": "Street performers entertaining a small crowd",
+    "priority": 0.07
+  },
+  {
+    "text": "Someone might have dropped something but I can't tell what",
+    "priority": 0.16
+  },
+  {
+    "text": "I thought I heard a loud noise but it could have been construction",
+    "priority": 0.24
+  },
+  {
+    "text": "Person walking quickly but probably just late for something",
+    "priority": 0.19
+  },
+  {
+    "text": "Two people talking animatedly, but seems like normal conversation",
+    "priority": 0.14
+  },
+  {
+    "text": "Someone gesturing with their hands while talking, hard to see what they're holding",
+    "priority": 0.26
+  },
+  {
+    "text": "I think there might be some kind of disagreement happening over there",
+    "priority": 0.29
+  },
+  {
+    "text": "Person seems upset about something, raising their voice slightly",
+    "priority": 0.33
+  },
+  {
+    "text": "Someone appears to be following another person, but might be coincidence",
+    "priority": 0.37
+  },
+  {
+    "text": "Group of teenagers being loud and rowdy, but probably just having fun",
+    "priority": 0.31
+  },
+  {
+    "text": "Individual pacing and muttering to themselves, seems distressed",
+    "priority": 0.39
+  },
+  {
+    "text": "Two people in what looks like a heated discussion, gesturing a lot",
+    "priority": 0.41
+  },
+  {
+    "text": "Someone is clearly agitated and shouting at passersby",
+    "priority": 0.47
+  },
+  {
+    "text": "Person holding something metallic, can't quite make out what it is",
+    "priority": 0.49
+  },
+  {
+    "text": "Individual appears to be concealing something under their jacket",
+    "priority": 0.53
+  },
+  {
+    "text": "Someone is making threatening hand gestures toward others",
+    "priority": 0.51
+  },
+  {
+    "text": "Person with what appears to be a sharp object, but they're just cutting food",
+    "priority": 0.27
+  },
+  {
+    "text": "I can see someone holding what definitely looks like a knife",
+    "priority": 0.63
+  },
+  {
+    "text": "Person is chasing someone else down the street",
+    "priority": 0.67
+  },
+  {
+    "text": "Individual with a blade is cornering someone against a wall",
+    "priority": 0.73
+  },
+  {
+    "text": "Someone just pulled out a weapon and is advancing on others",
+    "priority": 0.77
+  },
+  {
+    "text": "Person with knife is actively threatening to hurt someone",
+    "priority": 0.83
+  },
+  {
+    "text": "Attack happening now, someone is being hurt with a sharp weapon",
+    "priority": 0.91
+  },
+  {
+    "text": "Victim is bleeding heavily, attacker still present with knife",
+    "priority": 0.96
+  },
+  {
+    "text": "Multiple people injured in knife attack, perpetrator still armed",
+    "priority": 0.97
+  },
+  {
+    "text": "Mass casualty event, armed individual continuing to attack people",
+    "priority": 1.0
+  },
+  {
+    "text": "Someone mentioned they saw police earlier, probably routine patrol",
+    "priority": 0.11
+  },
+  {
+    "text": "Delivery person carrying packages, walking normally",
+    "priority": 0.05
+  },
+  {
+    "text": "Worker with tools heading toward construction site",
+    "priority": 0.09
+  },
+  {
+    "text": "I heard someone say they felt uncomfortable but didn't see why",
+    "priority": 0.21
+  },
+  {
+    "text": "Person dropped something that clanged, sounded metallic",
+    "priority": 0.23
+  },
+  {
+    "text": "Someone walking erratically, might be under the influence",
+    "priority": 0.34
+  },
+  {
+    "text": "Individual asking people for money aggressively",
+    "priority": 0.36
+  },
+  {
+    "text": "Person refusing to leave when asked, getting confrontational",
+    "priority": 0.44
+  },
+  {
+    "text": "Someone is blocking the path and won't let people pass",
+    "priority": 0.46
+  },
+  {
+    "text": "Individual making crude remarks and gestures at passersby",
+    "priority": 0.54
+  },
+  {
+    "text": "Person with object in hand approaching others in aggressive manner",
+    "priority": 0.56
+  },
+  {
+    "text": "Someone just threatened to hurt another person if they don't comply",
+    "priority": 0.61
+  },
+  {
+    "text": "Individual with weapon demanding people hand over their belongings",
+    "priority": 0.69
+  },
+  {
+    "text": "Person has grabbed someone and is holding a knife to them",
+    "priority": 0.87
+  },
+  {
+    "text": "Active stabbing, victim screaming for help, attacker still attacking",
+    "priority": 0.93
+  },
+  {
+    "text": "Chef walking between restaurants carrying kitchen knives in roll",
+    "priority": 0.13
+  },
+  {
+    "text": "Maintenance worker with utility knife working on equipment",
+    "priority": 0.08
+  },
+  {
+    "text": "Someone practicing martial arts with training weapons in designated area",
+    "priority": 0.17
+  },
+  {
+    "text": "Security guard on routine patrol, everything appears normal",
+    "priority": 0.02
+  },
+  {
+    "text": "Person seems lost and confused, asking for directions",
+    "priority": 0.12
+  },
+  {
+    "text": "Individual appears to be having mental health episode, talking to themselves",
+    "priority": 0.4
+  },
+  {
+    "text": "Someone claiming they have a weapon but I can't see anything",
+    "priority": 0.59
+  },
+  {
+    "text": "Person just showed a knife to intimidate someone during argument",
+    "priority": 0.75
+  },
+  {
+    "text": "Individual slashed at someone but missed, victim running away",
+    "priority": 0.89
+  },
+  {
+    "text": "Wounded person crawling away from armed attacker who is pursuing them",
+    "priority": 0.99
+  },
+  {
+    "text": "Multiple explosions heard in the distance, smoke visible",
+    "priority": 0.98
+  },
+  {
+    "text": "Armed group moving through area systematically attacking people",
+    "priority": 1.0
+  },
+  {
+    "text": "Coordinated attack in progress, multiple attackers with weapons",
+    "priority": 1.0
+  },
+  {
+    "text": "Vehicle driving through crowd at high speed, people scattered everywhere",
+    "priority": 0.97
+  },
+  {
+    "text": "Someone detonated explosive device, multiple casualties visible",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed individual barricaded and shooting at people",
+    "priority": 0.99
+  },
+  {
+    "text": "Mass shooting in progress, gunman still active",
+    "priority": 1.0
+  },
+  {
+    "text": "Bomb threat called in, building being evacuated",
+    "priority": 0.85
+  },
+  {
+    "text": "Suspicious package left unattended in crowded area",
+    "priority": 0.75
+  },
+  {
+    "text": "Individual with suicide vest threatening to detonate",
+    "priority": 0.99
+  },
+  {
+    "text": "Chemical attack suspected, people collapsing and having difficulty breathing",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed siege ongoing, hostages taken inside building",
+    "priority": 0.95
+  },
+  {
+    "text": "Terrorist cell conducting simultaneous attacks across multiple locations",
+    "priority": 1.0
+  },
+  {
+    "text": "Plane has been hijacked, passengers in extreme danger",
+    "priority": 1.0
+  },
+  {
+    "text": "Bridge collapse with people trapped underneath",
+    "priority": 0.94
+  },
+  {
+    "text": "Building on fire with people jumping from windows",
+    "priority": 0.96
+  },
+  {
+    "text": "Gas leak causing multiple people to lose consciousness",
+    "priority": 0.88
+  },
+  {
+    "text": "Train derailment with carriages overturned, many injured",
+    "priority": 0.92
+  },
+  {
+    "text": "Stadium stampede, people being trampled",
+    "priority": 0.91
+  },
+  {
+    "text": "Sniper shooting people from elevated position",
+    "priority": 0.99
+  },
+  {
+    "text": "Biological agent released, mass contamination event",
+    "priority": 1.0
+  },
+  {
+    "text": "Nuclear facility breach, radiation exposure risk",
+    "priority": 0.98
+  },
+  {
+    "text": "Dam failure imminent, massive flooding about to occur",
+    "priority": 0.97
+  },
+  {
+    "text": "Cyber attack has disabled emergency services communication",
+    "priority": 0.86
+  },
+  {
+    "text": "Armed militants have taken control of government building",
+    "priority": 0.98
+  },
+  {
+    "text": "School lockdown, armed intruder on campus",
+    "priority": 0.99
+  },
+  {
+    "text": "Hospital under attack, patients and staff in immediate danger",
+    "priority": 1.0
+  },
+  {
+    "text": "Airport terminal evacuation, bomb suspected in luggage",
+    "priority": 0.89
+  },
+  {
+    "text": "Multiple simultaneous explosions across city center",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed convoy surrounding and isolating area, civilians trapped",
+    "priority": 0.93
+  },
+  {
+    "text": "Peaceful demonstration, people holding signs and chanting",
+    "priority": 0.01
+  },
+  {
+    "text": "Street festival with music and food vendors",
+    "priority": 0.0
+  },
+  {
+    "text": "Community gathering for local charity event",
+    "priority": 0.01
+  },
+  {
+    "text": "Graduation ceremony proceeding normally",
+    "priority": 0.0
+  },
+  {
+    "text": "Wedding celebration in park, guests mingling happily",
+    "priority": 0.0
+  },
+  {
+    "text": "Farmers market busy with shoppers, very routine",
+    "priority": 0.02
+  },
+  {
+    "text": "Library reading session, children listening to stories",
+    "priority": 0.0
+  },
+  {
+    "text": "Elderly people playing chess in the square",
+    "priority": 0.01
+  },
+  {
+    "text": "Dogs running freely in designated off-leash area",
+    "priority": 0.03
+  },
+  {
+    "text": "Joggers on their regular morning route through neighborhood",
+    "priority": 0.02
+  },
+  {
+    "text": "Food truck serving lunch to office workers",
+    "priority": 0.01
+  },
+  {
+    "text": "Tour group following guide through historical district",
+    "priority": 0.02
+  },
+  {
+    "text": "Beach volleyball game in progress, spectators cheering",
+    "priority": 0.0
+  },
+  {
+    "text": "Art students sketching in the museum courtyard",
+    "priority": 0.01
+  },
+  {
+    "text": "Outdoor yoga class in session, peaceful atmosphere",
+    "priority": 0.0
+  },
+  {
+    "text": "Bird watchers with binoculars observing wildlife",
+    "priority": 0.03
+  },
+  {
+    "text": "Local band setting up equipment for evening concert",
+    "priority": 0.04
+  },
+  {
+    "text": "Gardeners maintaining flower beds in public space",
+    "priority": 0.02
+  },
+  {
+    "text": "Photographer taking pictures of architecture",
+    "priority": 0.01
+  },
+  {
+    "text": "Ice cream vendor serving customers on hot day",
+    "priority": 0.0
+  },
+  {
+    "text": "Students studying together on university campus",
+    "priority": 0.01
+  },
+  {
+    "text": "Families having picnics under the trees",
+    "priority": 0.0
+  },
+  {
+    "text": "Maintenance crew cleaning up after storm, removing debris",
+    "priority": 0.05
+  },
+  {
+    "text": "Coffee shop barista making drinks, normal morning rush",
+    "priority": 0.01
+  },
+  {
+    "text": "Bus driver helping elderly passenger with bags",
+    "priority": 0.02
+  },
+  {
+    "text": "Crossing guard directing children safely across street",
+    "priority": 0.01
+  },
+  {
+    "text": "Postal worker delivering mail to residential addresses",
+    "priority": 0.0
+  },
+  {
+    "text": "Neighbors chatting over garden fence about weekend plans",
+    "priority": 0.02
+  },
+  {
+    "text": "Dog walker with multiple dogs on leashes, all well-behaved",
+    "priority": 0.03
+  },
+  {
+    "text": "Street sweeper cleaning gutters on schedule",
+    "priority": 0.01
+  },
+  {
+    "text": "Park ranger explaining trail safety to hikers",
+    "priority": 0.02
+  },
+  {
+    "text": "Library volunteers organizing books for weekend sale",
+    "priority": 0.0
+  },
+  {
+    "text": "Bicycle repair shop owner fixing flat tire for customer",
+    "priority": 0.01
+  },
+  {
+    "text": "School janitor emptying trash bins in courtyard",
+    "priority": 0.02
+  },
+  {
+    "text": "Florist arranging display outside shop, very routine",
+    "priority": 0.01
+  },
+  {
+    "text": "Construction worker on lunch break, sitting peacefully",
+    "priority": 0.03
+  },
+  {
+    "text": "Local musician tuning guitar before street performance",
+    "priority": 0.02
+  },
+  {
+    "text": "Grandmother pushing stroller with sleeping baby",
+    "priority": 0.0
+  },
+  {
+    "text": "Fisherman setting up gear by the riverside",
+    "priority": 0.01
+  },
+  {
+    "text": "Taxi driver helping passenger load luggage",
+    "priority": 0.02
+  },
+  {
+    "text": "Store owner sweeping sidewalk in front of business",
+    "priority": 0.01
+  },
+  {
+    "text": "Kids' soccer practice winding down, parents picking up children",
+    "priority": 0.0
+  },
+  {
+    "text": "Maintenance team replacing burnt-out streetlight bulb",
+    "priority": 0.03
+  },
+  {
+    "text": "Someone watering plants in window boxes above street",
+    "priority": 0.01
+  },
+  {
+    "text": "Food delivery person checking address on phone",
+    "priority": 0.02
+  },
+  {
+    "text": "Elderly couple feeding pigeons in town square",
+    "priority": 0.0
+  },
+  {
+    "text": "Window washer working on storefront, using squeegee",
+    "priority": 0.02
+  },
+  {
+    "text": "Someone reading newspaper on bench, drinking coffee",
+    "priority": 0.0
+  },
+  {
+    "text": "Hair stylist sweeping hair clippings from salon entrance",
+    "priority": 0.01
+  },
+  {
+    "text": "Volunteers setting up tables for community fundraiser",
+    "priority": 0.01
+  },
+  {
+    "text": "Person walking small dog, stopping for it to sniff around",
+    "priority": 0.02
+  },
+  {
+    "text": "Office workers on smoke break, talking about sports",
+    "priority": 0.03
+  },
+  {
+    "text": "Someone getting directions from helpful local resident",
+    "priority": 0.01
+  },
+  {
+    "text": "Teenager practicing skateboard tricks in empty parking lot",
+    "priority": 0.05
+  },
+  {
+    "text": "Person loading groceries into car trunk after shopping",
+    "priority": 0.02
+  },
+  {
+    "text": "Landscaper trimming hedges with electric trimmer, routine work",
+    "priority": 0.04
+  },
+  {
+    "text": "Someone taking photos of historical building for personal album",
+    "priority": 0.01
+  },
+  {
+    "text": "Parent helping child tie shoelaces on sidewalk",
+    "priority": 0.0
+  },
+  {
+    "text": "Butcher carrying wrapped meat to delivery truck",
+    "priority": 0.06
+  },
+  {
+    "text": "Someone dropped their keys and is searching for them",
+    "priority": 0.03
+  },
+  {
+    "text": "Barber closing shop, turning off lights and locking door",
+    "priority": 0.01
+  },
+  {
+    "text": "Person checking parking meter, counting change for payment",
+    "priority": 0.02
+  },
+  {
+    "text": "Nurse walking to hospital, still in scrubs from shift",
+    "priority": 0.01
+  },
+  {
+    "text": "Someone adjusting their backpack straps while walking",
+    "priority": 0.02
+  },
+  {
+    "text": "Teacher carrying art supplies to after-school program",
+    "priority": 0.01
+  },
+  {
+    "text": "Person sitting on steps eating lunch from brown bag",
+    "priority": 0.0
+  },
+  {
+    "text": "Clockmaker carrying antique timepieces to repair shop",
+    "priority": 0.03
+  },
+  {
+    "text": "Someone helping elderly person cross busy intersection",
+    "priority": 0.02
+  },
+  {
+    "text": "Marathon runner checking fitness tracker mid-route",
+    "priority": 0.01
+  },
+  {
+    "text": "Person returning borrowed book to neighborhood library",
+    "priority": 0.0
+  },
+  {
+    "text": "Someone picking up litter and putting it in trash bin",
+    "priority": 0.01
+  },
+  {
+    "text": "Carpenter measuring wood planks for home renovation project",
+    "priority": 0.04
+  },
+  {
+    "text": "Person waiting for friend outside movie theater, checking time",
+    "priority": 0.02
+  },
+  {
+    "text": "Someone giving directions to lost tourist with map",
+    "priority": 0.01
+  },
+  {
+    "text": "Local artist painting landscape scene on easel",
+    "priority": 0.0
+  },
+  {
+    "text": "Person seems intoxicated and stumbling around, might fall",
+    "priority": 0.35
+  },
+  {
+    "text": "Someone is yelling at their phone, getting increasingly frustrated",
+    "priority": 0.32
+  },
+  {
+    "text": "Individual appears to be having an argument with someone not visible",
+    "priority": 0.38
+  },
+  {
+    "text": "Person looking through trash cans, seems desperate or hungry",
+    "priority": 0.29
+  },
+  {
+    "text": "Someone asking multiple people for money, becoming more insistent",
+    "priority": 0.41
+  },
+  {
+    "text": "Individual with shopping cart full of belongings, appears homeless",
+    "priority": 0.27
+  },
+  {
+    "text": "Person banging on locked door, shouting to be let in",
+    "priority": 0.45
+  },
+  {
+    "text": "Someone threw a bottle that shattered on pavement",
+    "priority": 0.48
+  },
+  {
+    "text": "Individual refusing to move from private property when asked",
+    "priority": 0.43
+  },
+  {
+    "text": "Person seems to be casing the area, looking in windows",
+    "priority": 0.52
+  },
+  {
+    "text": "Someone is following a woman who looks uncomfortable",
+    "priority": 0.58
+  },
+  {
+    "text": "Individual trying car door handles to see if any are unlocked",
+    "priority": 0.61
+  },
+  {
+    "text": "Person climbing over fence into restricted area",
+    "priority": 0.54
+  },
+  {
+    "text": "Someone taking pictures of security cameras and building entrances",
+    "priority": 0.56
+  },
+  {
+    "text": "Individual with crowbar attempting to open something",
+    "priority": 0.63
+  },
+  {
+    "text": "Person in mask and dark clothing acting suspiciously near bank",
+    "priority": 0.67
+  },
+  {
+    "text": "Someone broke a window, not sure if accidental or intentional",
+    "priority": 0.39
+  },
+  {
+    "text": "Individual appears to be tampering with electrical box",
+    "priority": 0.59
+  },
+  {
+    "text": "Person throwing rocks at building windows",
+    "priority": 0.51
+  },
+  {
+    "text": "Someone spray painting graffiti on public property",
+    "priority": 0.33
+  },
+  {
+    "text": "Individual urinating in public, causing people to avoid area",
+    "priority": 0.31
+  },
+  {
+    "text": "Person aggressively panhandling, making people uncomfortable",
+    "priority": 0.42
+  },
+  {
+    "text": "Someone appears to be selling drugs to teenagers",
+    "priority": 0.65
+  },
+  {
+    "text": "Individual exposing themselves inappropriately in public",
+    "priority": 0.46
+  },
+  {
+    "text": "Person dumping trash illegally in prohibited area",
+    "priority": 0.28
+  },
+  {
+    "text": "Someone riding bicycle recklessly through pedestrian area",
+    "priority": 0.37
+  },
+  {
+    "text": "Individual smoking in clearly marked no-smoking zone",
+    "priority": 0.26
+  },
+  {
+    "text": "Person loudly playing music despite complaints from others",
+    "priority": 0.34
+  },
+  {
+    "text": "Someone appears to be pickpocketing in crowded area",
+    "priority": 0.62
+  },
+  {
+    "text": "Individual looking into parked cars, testing door handles",
+    "priority": 0.57
+  },
+  {
+    "text": "Person seems to be stalking someone, maintaining distance but following",
+    "priority": 0.64
+  },
+  {
+    "text": "Someone is loitering near school entrance during class hours",
+    "priority": 0.55
+  },
+  {
+    "text": "Individual appears to be documenting security procedures inappropriately",
+    "priority": 0.6
+  },
+  {
+    "text": "Person asking children to come with them, parents not around",
+    "priority": 0.68
+  },
+  {
+    "text": "Someone is cutting through private property, ignoring no trespassing signs",
+    "priority": 0.36
+  },
+  {
+    "text": "Individual appears to be tampering with someone else's vehicle",
+    "priority": 0.53
+  },
+  {
+    "text": "Person hiding behind building, watching people pass by",
+    "priority": 0.49
+  },
+  {
+    "text": "Someone is clearly intoxicated and bothering other pedestrians",
+    "priority": 0.4
+  },
+  {
+    "text": "Individual with binoculars watching people from distance inappropriately",
+    "priority": 0.47
+  },
+  {
+    "text": "Person appears to be documenting people's routines and movements",
+    "priority": 0.58
+  },
+  {
+    "text": "Someone is blocking emergency exit with their belongings",
+    "priority": 0.44
+  },
+  {
+    "text": "Individual seems to be testing building security by trying different entrances",
+    "priority": 0.62
+  },
+  {
+    "text": "Person is aggressively confronting people about political views",
+    "priority": 0.38
+  },
+  {
+    "text": "Someone appears to be slashing bicycle tires in bike rack",
+    "priority": 0.5
+  },
+  {
+    "text": "Individual is keying cars in parking lot",
+    "priority": 0.48
+  },
+  {
+    "text": "Person threw food at someone but it seems like they know each other",
+    "priority": 0.3
+  },
+  {
+    "text": "Someone is loudly arguing with store clerk over return policy",
+    "priority": 0.35
+  },
+  {
+    "text": "Individual appears to be providing false information to authorities",
+    "priority": 0.41
+  },
+  {
+    "text": "Person is aggressively honking car horn in traffic jam",
+    "priority": 0.25
+  },
+  {
+    "text": "Someone cut in line and others are getting annoyed",
+    "priority": 0.24
+  },
+  {
+    "text": "Individual is talking loudly on phone about personal problems",
+    "priority": 0.23
+  },
+  {
+    "text": "Person seems lost and is asking everyone for directions repeatedly",
+    "priority": 0.18
+  },
+  {
+    "text": "Kids are doing a TikTok dance challenge in the plaza",
+    "priority": 0.0
+  },
+  {
+    "text": "Someone is pretending to be a statue for tips, street performer",
+    "priority": 0.01
+  },
+  {
+    "text": "Person in costume handing out flyers for new restaurant",
+    "priority": 0.02
+  },
+  {
+    "text": "Students doing a flash mob dance for school project",
+    "priority": 0.03
+  },
+  {
+    "text": "Someone is juggling fake rubber knives for entertainment",
+    "priority": 0.05
+  },
+  {
+    "text": "Actor in period costume with prop sword filming movie scene",
+    "priority": 0.04
+  },
+  {
+    "text": "Person wearing zombie makeup, probably heading to costume party",
+    "priority": 0.06
+  },
+  {
+    "text": "Kids playing with water balloons, making mess but harmless",
+    "priority": 0.02
+  },
+  {
+    "text": "Someone doing magic tricks with fake blood, street magician",
+    "priority": 0.07
+  },
+  {
+    "text": "Person in gorilla suit giving out promotional materials",
+    "priority": 0.03
+  },
+  {
+    "text": "Students practicing theatrical sword fight with foam weapons",
+    "priority": 0.04
+  },
+  {
+    "text": "Someone filming prank video with fake spider, people jumping",
+    "priority": 0.08
+  },
+  {
+    "text": "Person dressed as superhero for children's birthday party",
+    "priority": 0.01
+  },
+  {
+    "text": "Mime artist performing in invisible box routine",
+    "priority": 0.0
+  },
+  {
+    "text": "Someone doing parkour training, jumping over benches",
+    "priority": 0.09
+  },
+  {
+    "text": "Person with realistic toy gun, clearly marked as prop for cosplay",
+    "priority": 0.05
+  },
+  {
+    "text": "Students doing chemistry demonstration with safe fake smoke",
+    "priority": 0.06
+  },
+  {
+    "text": "Someone practicing martial arts forms with wooden training sword",
+    "priority": 0.03
+  },
+  {
+    "text": "Person in medieval armor for renaissance fair, carrying foam lance",
+    "priority": 0.02
+  },
+  {
+    "text": "Kids playing cops and robbers with toy handcuffs",
+    "priority": 0.04
+  },
+  {
+    "text": "Someone doing dramatic reading of Shakespeare, fake dagger as prop",
+    "priority": 0.05
+  },
+  {
+    "text": "Person teaching historical reenactment with replica musket",
+    "priority": 0.07
+  },
+  {
+    "text": "Teenager showing off fake tattoos to friends",
+    "priority": 0.01
+  },
+  {
+    "text": "Someone practicing ventriloquism with puppet, voice throwing",
+    "priority": 0.02
+  },
+  {
+    "text": "Person doing card tricks, making coins disappear",
+    "priority": 0.0
+  },
+  {
+    "text": "Kids having pretend tea party with stuffed animals",
+    "priority": 0.0
+  },
+  {
+    "text": "Someone blowing soap bubbles for entertainment",
+    "priority": 0.01
+  },
+  {
+    "text": "Person doing balloon animals for waiting children",
+    "priority": 0.02
+  },
+  {
+    "text": "Students filming comedy sketch with fake police tape",
+    "priority": 0.08
+  },
+  {
+    "text": "Someone practicing yo-yo tricks, drawing small crowd",
+    "priority": 0.01
+  },
+  {
+    "text": "Person in clown costume making balloon swords for kids",
+    "priority": 0.03
+  },
+  {
+    "text": "Teenagers doing synchronized swimming moves on dry land for laughs",
+    "priority": 0.02
+  },
+  {
+    "text": "Someone wearing fake mustache and sunglasses as joke",
+    "priority": 0.04
+  },
+  {
+    "text": "Person doing impression of famous celebrity, people laughing",
+    "priority": 0.01
+  },
+  {
+    "text": "Kids playing freeze dance, stopping in silly positions",
+    "priority": 0.0
+  },
+  {
+    "text": "Someone doing fake fall prank, gets up laughing",
+    "priority": 0.09
+  },
+  {
+    "text": "Person pretending to be robot, moving mechanically for fun",
+    "priority": 0.02
+  },
+  {
+    "text": "Students doing trust fall exercise, catching each other safely",
+    "priority": 0.03
+  },
+  {
+    "text": "Someone practicing stand-up comedy routine to small audience",
+    "priority": 0.01
+  },
+  {
+    "text": "Person doing fake magic show with obviously fake props",
+    "priority": 0.04
+  },
+  {
+    "text": "Kids pretending to be dinosaurs, roaring and stomping around",
+    "priority": 0.02
+  },
+  {
+    "text": "Someone doing silly walk demonstration from Monty Python",
+    "priority": 0.03
+  },
+  {
+    "text": "Person practicing puppet show with hand puppets",
+    "priority": 0.01
+  },
+  {
+    "text": "Students doing improv comedy exercises in public space",
+    "priority": 0.05
+  },
+  {
+    "text": "Someone doing fake news reporter bit with banana as microphone",
+    "priority": 0.06
+  },
+  {
+    "text": "Person teaching group how to moonwalk, everyone practicing together",
+    "priority": 0.02
+  },
+  {
+    "text": "Kids playing red light green light, freezing when called",
+    "priority": 0.01
+  },
+  {
+    "text": "Someone doing fake cooking show demo with plastic food",
+    "priority": 0.03
+  },
+  {
+    "text": "Person practicing sign language with friend, animated gestures",
+    "priority": 0.04
+  },
+  {
+    "text": "Students doing silent disco, dancing to music only they can hear",
+    "priority": 0.05
+  },
+  {
+    "text": "Someone pretending to conduct invisible orchestra",
+    "priority": 0.02
+  },
+  {
+    "text": "Active shooter with automatic weapon in crowded mall, dozens injured",
+    "priority": 0.99
+  },
+  {
+    "text": "Truck bomb detonated in city center, buildings collapsing",
+    "priority": 1.0
+  },
+  {
+    "text": "Coordinated suicide bombing campaign across multiple subway stations",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed group has taken over airport terminal, executing hostages",
+    "priority": 1.0
+  },
+  {
+    "text": "Chemical weapon deployed in stadium during major event",
+    "priority": 1.0
+  },
+  {
+    "text": "Nuclear plant meltdown confirmed, radiation spreading to populated areas",
+    "priority": 1.0
+  },
+  {
+    "text": "Terrorist cell simultaneously attacking hospitals across the city",
+    "priority": 1.0
+  },
+  {
+    "text": "Hijacked aircraft being flown toward major population center",
+    "priority": 1.0
+  },
+  {
+    "text": "Dirty bomb exploded downtown, radioactive contamination widespread",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed militia has seized control of government buildings",
+    "priority": 0.98
+  },
+  {
+    "text": "Mass poisoning event at water treatment facility affecting thousands",
+    "priority": 1.0
+  },
+  {
+    "text": "Coordinated cyber-physical attack on power grid and emergency services",
+    "priority": 0.97
+  },
+  {
+    "text": "Multiple armed groups conducting simultaneous attacks on schools",
+    "priority": 1.0
+  },
+  {
+    "text": "Biological weapon released in subway system during rush hour",
+    "priority": 1.0
+  },
+  {
+    "text": "Terrorist organization has breached nuclear weapons facility",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed siege of major hospital with hundreds of patients trapped",
+    "priority": 0.99
+  },
+  {
+    "text": "Coordinated vehicle attacks across multiple city locations simultaneously",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed extremists have taken control of major transportation hub",
+    "priority": 0.98
+  },
+  {
+    "text": "Systematic execution of civilians by armed group in public square",
+    "priority": 1.0
+  },
+  {
+    "text": "Major bridge destroyed during rush hour, hundreds of vehicles involved",
+    "priority": 0.96
+  },
+  {
+    "text": "Coordinated attacks on multiple emergency response centers",
+    "priority": 0.99
+  },
+  {
+    "text": "Armed group systematically targeting and attacking first responders",
+    "priority": 0.98
+  },
+  {
+    "text": "Chemical plant explosion with toxic cloud moving toward residential area",
+    "priority": 0.97
+  },
+  {
+    "text": "Mass shooting with hundreds of rounds fired into crowd",
+    "priority": 0.99
+  },
+  {
+    "text": "Coordinated bombing campaign targeting civilian infrastructure",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed takeover of multiple schools with hostage executions",
+    "priority": 1.0
+  },
+  {
+    "text": "Terrorist attack on nuclear facility with radiological dispersal",
+    "priority": 1.0
+  },
+  {
+    "text": "Systematic poisoning of food supply affecting entire region",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed militants conducting door-to-door executions in neighborhood",
+    "priority": 1.0
+  },
+  {
+    "text": "Coordinated attack on electrical grid causing citywide blackout during winter",
+    "priority": 0.95
+  },
+  {
+    "text": "Mass casualty event with perpetrators preventing emergency response",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed group has weaponized commercial aircraft",
+    "priority": 1.0
+  },
+  {
+    "text": "Coordinated assault on multiple critical infrastructure targets",
+    "priority": 0.98
+  },
+  {
+    "text": "Terrorist cell has deployed multiple improvised explosive devices",
+    "priority": 0.99
+  },
+  {
+    "text": "Armed siege of government complex with mass execution threat",
+    "priority": 1.0
+  },
+  {
+    "text": "Systematic targeting of medical facilities during pandemic response",
+    "priority": 1.0
+  },
+  {
+    "text": "Coordinated attack on food distribution centers causing mass starvation risk",
+    "priority": 0.96
+  },
+  {
+    "text": "Armed extremists have taken control of major dam threatening flood",
+    "priority": 0.98
+  },
+  {
+    "text": "Multiple suicide bombers coordinating attacks on packed venues",
+    "priority": 1.0
+  },
+  {
+    "text": "Terrorist organization has seized control of major port facility",
+    "priority": 0.97
+  },
+  {
+    "text": "Armed group conducting ethnic cleansing operations in city district",
+    "priority": 1.0
+  },
+  {
+    "text": "Coordinated attack on communication infrastructure during emergency",
+    "priority": 0.95
+  },
+  {
+    "text": "Mass shooting at international airport with hundreds of casualties",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed militants have weaponized industrial chemicals for mass attack",
+    "priority": 1.0
+  },
+  {
+    "text": "Terrorist cell has infiltrated and compromised emergency response system",
+    "priority": 0.99
+  },
+  {
+    "text": "Coordinated bombing of refugee camps and humanitarian centers",
+    "priority": 1.0
+  },
+  {
+    "text": "Armed siege of major financial district with systematic executions",
+    "priority": 1.0
+  },
+  {
+    "text": "Mass poisoning of public water supply affecting millions",
+    "priority": 1.0
+  },
+  {
+    "text": "Terrorist attack on vaccine distribution centers during health crisis",
+    "priority": 0.98
+  },
+  {
+    "text": "Armed extremists have taken control of major media broadcasting center",
+    "priority": 0.96
+  },
+  {
+    "text": "Coordinated assault on multiple power plants causing regional blackout",
+    "priority": 0.97
+  },
+  {
+    "text": "Mass shooting combined with chemical attack in enclosed stadium",
+    "priority": 1.0
+  },
+  {
+    "text": "He has a weapon",
+    "priority": 1.0
+  },
+  {
+    "text": "She has a weapon",
+    "priority": 1.0
+  },
+  {
+    "text": "I think he has a weapon",
+    "priority": 0.65
+  },
+  {
+    "text": "I think she has a weapon",
+    "priority": 0.65
+  },
+  {
+    "text": "He has a weapon I think",
+    "priority": 0.65
+  },
+  {
+    "text": "She has a weapon I think",
+    "priority": 0.65
+  },
+  {
+    "text": "I think they have a weapon",
+    "priority": 0.63
+  }
+]

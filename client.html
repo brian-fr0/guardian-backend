@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chat</title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: arial;
+        background: #444445;
+      }
+      main {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: .5rem;
+        min-height: 100vh;
+        gap: 2rem;
+      }
+      #chats {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 25vw;
+      }
+      .chat {
+        padding: 15px;
+        background: #303142;
+        border-radius: 5px;
+        color: #fdfdfd;
+        height: auto;
+        align-self: end;
+      }
+      .response {
+        padding: 15px;
+        background: rgb(108, 105, 143);
+        border-radius: 5px;
+        color: #fdfdfd;
+      }
+      form {
+        position: sticky;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        align-self: flex-start;
+        height: auto;
+        padding-bottom: 1rem;
+      }
+      textarea {
+        max-height: 20vh;
+        resize: none;
+        background: rgb(66, 68, 97);
+        color: #fdfdfd;
+        border: none;
+        padding: 1.5rem;
+        width: 25vw;
+        font-size: 1.2rem;
+        border-radius: 20px;
+        border: 1px solid rgba(100, 100, 100, .8);
+      }
+      textarea:focus {
+        outline: none;
+      }
+      button {
+        width: 10%;
+        padding: 1rem;
+        background: rgb(66, 68, 97);
+        color: #fdfdfd;
+        border: none;
+        font-weight: 600;
+        font-size: 1.4rem;
+        border-radius: 2rem;
+        text-transform: uppercase;
+        transition: filter .2s ease-in-out;
+        border: 1px solid rgba(100, 100, 100, .8);
+      }
+
+      button:hover {
+        cursor: pointer;
+        filter: brightness(120%);
+      }
+    </style>
+    <main>
+      <div id="chats">
+      </div>
+      <form id="chatForm">
+        <textarea id="message" placeholder="Description"></textarea>
+      </form> 
+    </main>
+
+    <script>
+      let loading = false;
+      const chatsElement = document.getElementById("chats");
+      const chatForm = document.getElementById("chatForm");
+      const newMessage = document.getElementById("message");
+      const messagePairs = [];
+
+      function autoResize(textarea) {
+        textarea.style.height = 'auto';
+        const maxHeight = window.innerHeight * 0.2;
+        textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + 'px';
+        textarea.style.overflowY = textarea.scrollHeight > maxHeight ? 'auto' : 'hidden';
+      }
+      newMessage.addEventListener('input', () => autoResize(newMessage));
+      autoResize(newMessage);
+
+      async function sendForm() {
+        if (newMessage.value === "") {
+          return;
+        }
+
+        if (loading) {
+          return;
+        }
+
+        loading = true;
+
+        const messagePair = {
+          message: newMessage.value
+        }
+        newMessage.value = "";
+
+        newChat(messagePair.message);
+        const chatRes = newResponse("Loading...........");
+
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(messagePair)
+        });
+
+        const message = await response.text();
+        chatRes.innerHTML = message;
+
+        loading = false;
+      }
+
+      newMessage.addEventListener('keydown', (e) => {
+        if (e.code === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          sendForm();
+        }
+      });
+
+      function newChat(content) {
+        const chatElement = document.createElement("p");
+        chatElement.classList.add('chat');
+        chatElement.innerHTML = content;
+        chatsElement.appendChild(chatElement);
+      }
+
+      function newResponse(content) {
+        const responseElement = document.createElement("p");
+        responseElement.classList.add('response');
+        responseElement.innerHTML = content;
+        chatsElement.appendChild(responseElement);
+        return responseElement;
+      }
+    </script>
+  </body>
+</html>
