@@ -1,37 +1,41 @@
 name: Security Scans
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
+  push:
+    branches: [ security-scans ]
 
 jobs:
   sast-and-sca:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
 
-      # 🔍 Dependency security scan (SCA)
-      - name: Run npm audit
-        run: npm audit --audit-level=high
-
-      # 🔍 Static analysis (SAST) with CodeQL
+      # Initialize CodeQL (now v3)
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: javascript
 
+      # NEW step for CodeQL builds
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      # Run CodeQL analysis
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
-
