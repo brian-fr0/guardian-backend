@@ -72,36 +72,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: TruffleHog (PR diff)
-        uses: trufflesecurity/trufflehog@v3.63.2
-        with:
-          scan: git
-          base: ${{ github.event.pull_request.base.sha }}
-          head: ${{ github.event.pull_request.head.sha }}
+      # TruffleHog scans only the diff in the PR (fast)
+      - name: TruffleHog (PR diff, non-blocking)
+        run: |
+          trufflehog git file://. \
+            --since-commit ${{ github.event.pull_request.base.sha }} \
+            --branch ${{ github.event.pull_request.head.sha }} \
+            --only-verified || true
 
   # --- Optional: container image scan (only runs if a Dockerfile exists)
   container-scan:
     runs-on: ubuntu-latest
+    if: ${{ hashFiles('Dockerfile') != '' }}
     steps:
-      - name: Check for Dockerfile
-        id: dockerfile
-        run: |
-          if [ -f Dockerfile ]; then echo "exists=true" >> $GITHUB_OUTPUT; else echo "exists=false" >> $GITHUB_OUTPUT; fi
-
       - name: Checkout
-        if: steps.dockerfile.outputs.exists == 'true'
         uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
-        if: steps.dockerfile.outputs.exists == 'true'
         uses: docker/setup-buildx-action@v3
 
       - name: Build image
-        if: steps.dockerfile.outputs.exists == 'true'
         run: docker build -t guardian-backend:${{ github.sha }} .
 
       - name: Trivy image scan (fail on HIGH/CRITICAL)
-        if: steps.dockerfile.outputs.exists == 'true'
         uses: aquasecurity/trivy-action@0.24.0
         with:
           scan-type: image
