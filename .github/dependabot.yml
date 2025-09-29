@@ -1,17 +1,29 @@
-- package-ecosystem: "npm"
-  directory: "/"
-  schedule:
-    interval: "weekly"
-  open-pull-requests-limit: 5
-  commit-message:
-    prefix: "deps"
-  labels:
-    - "dependencies"
-    - "security"
-  security-updates: true
-  # keep normal patch/minor updates ignored, but allow security PRs
-  ignore:
-    - dependency-type: "all"
-      update-types:
-        - "version-update:semver-minor"
-        - "version-update:semver-patch"
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+    labels:
+      - "dependencies"
+      - "security"
+    # Ignore normal patch/minor *version* updates to reduce noise.
+    # (Security updates are configured in repo settings and aren’t affected by this.)
+    ignore:
+      - dependency-type: "all"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "ci"
+      - "dependencies"
