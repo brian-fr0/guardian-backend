@@ -10,10 +10,8 @@ updates:
     labels:
       - "dependencies"
       - "security"
-    # Ignore normal patch/minor *version* updates to reduce noise.
-    # (Security updates are configured in repo settings and aren’t affected by this.)
     ignore:
-      - dependency-type: "all"
+      - dependency-name: "*"
         update-types:
           - "version-update:semver-minor"
           - "version-update:semver-patch"
