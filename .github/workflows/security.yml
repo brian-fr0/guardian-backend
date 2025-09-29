@@ -10,7 +10,7 @@ on:
     - cron: "0 3 * * 1"
   workflow_dispatch:
 
-# cancel duplicate runs on the same ref
+# cancel duplicate runs on same ref
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -64,7 +64,7 @@ jobs:
         with:
           category: "/language:javascript"
 
-  # --- Optional: secret detection in PRs
+  # --- Secret detection in PRs
   secrets-scan:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
@@ -79,33 +79,34 @@ jobs:
           base: ${{ github.event.pull_request.base.sha }}
           head: ${{ github.event.pull_request.head.sha }}
 
-  # --- Optional: container image scan (only runs if Dockerfile exists)
+  # --- Optional: container image scan (skips if no Dockerfile)
   container-scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Check if Dockerfile exists
       - name: Check for Dockerfile
         id: dockerfile_check
         run: |
-          if [ -f Dockerfile ]; then
-            echo "exists=true" >> $GITHUB_ENV
-          else
-            echo "exists=false" >> $GITHUB_ENV
+          if [ ! -f Dockerfile ]; then
+            echo "no_dockerfile=true" >> $GITHUB_ENV
           fi
 
+      - name: Skip if no Dockerfile
+        if: env.no_dockerfile == 'true'
+        run: echo "No Dockerfile found, skipping container scan."
+
       - name: Set up Docker Buildx
-        if: env.exists == 'true'
+        if: env.no_dockerfile != 'true'
         uses: docker/setup-buildx-action@v3
 
       - name: Build image
-        if: env.exists == 'true'
+        if: env.no_dockerfile != 'true'
         run: docker build -t guardian-backend:${{ github.sha }} .
 
       - name: Trivy image scan (fail on HIGH/CRITICAL)
-        if: env.exists == 'true'
+        if: env.no_dockerfile != 'true'
         uses: aquasecurity/trivy-action@0.24.0
         with:
           scan-type: image
