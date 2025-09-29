@@ -1,0 +1,115 @@
+name: Security Scans
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  schedule:
+    # weekly safety net (Mon 03:00 UTC)
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+# cancel duplicate runs on the same ref
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  security-events: write        # required for CodeQL results
+  pull-requests: read
+
+jobs:
+  # --- SCA on PRs: shows if a PR introduces vulnerable deps
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dependency Review (PR gate)
+        uses: actions/dependency-review-action@v4
+
+  # --- SAST (CodeQL) + SCA (npm audit)
+  sast-and-sca:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node (18.x)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install deps (no postinstall scripts)
+        run: npm ci --ignore-scripts
+
+      # SCA: report vulnerabilities but do NOT fail the build
+      - name: npm audit (report only, no CI failure)
+        run: |
+          npm audit || true
+
+      # SAST via CodeQL v3 (JavaScript/TypeScript)
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+
+      - name: Autobuild (JS projects usually skip, but harmless)
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript"
+
+  # --- Optional: secret detection in PRs
+  secrets-scan:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # TruffleHog scans only the diff in the PR (fast)
+      - name: TruffleHog (PR diff)
+        uses: trufflesecurity/trufflehog@main   # <-- FIX: was @v3
+        with:
+          path: .
+          base: ${{ github.event.pull_request.base.sha }}
+          head: ${{ github.event.pull_request.head.sha }}
+          extra_args: --only-verified
+
+  # --- Optional: container image scan (only runs if a Dockerfile exists)
+  container-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Dockerfile
+        id: dockerfile
+        run: |
+          if [ -f Dockerfile ]; then echo "exists=true" >> $GITHUB_OUTPUT; else echo "exists=false" >> $GITHUB_OUTPUT; fi
+
+      - name: Checkout
+        if: steps.dockerfile.outputs.exists == 'true'
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        if: steps.dockerfile.outputs.exists == 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        if: steps.dockerfile.outputs.exists == 'true'
+        run: docker build -t guardian-backend:${{ github.sha }} .
+
+      - name: Trivy image scan (fail on HIGH/CRITICAL)
+        if: steps.dockerfile.outputs.exists == 'true'
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          scan-type: image
+          image-ref: guardian-backend:${{ github.sha }}
+          vuln-type: 'os,library'
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: true
+          exit-code: '1'
