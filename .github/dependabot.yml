@@ -1,0 +1,24 @@
+version: 2
+updates:
+  # Monitor npm dependencies in your Node.js backend
+  - package-ecosystem: "npm"
+    directory: "/" # root folder where package.json lives
+    schedule:
+      interval: "weekly" # check once a week
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+    labels:
+      - "dependencies"
+      - "security"
+
+  # Also monitor GitHub Actions workflows (like security.yml)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "ci"
+      - "dependencies"
