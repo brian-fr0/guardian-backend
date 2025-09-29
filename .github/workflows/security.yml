@@ -84,7 +84,8 @@ jobs:
   # --- Optional: container image scan (only runs if a Dockerfile exists)
   container-scan:
     runs-on: ubuntu-latest
-    if: hashFiles('Dockerfile') != ''
+    if: ${{ exists('Dockerfile') }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
