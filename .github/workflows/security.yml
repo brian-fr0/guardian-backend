@@ -26,13 +26,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Initialize CodeQL (now v3)
+      # 🔎 SCA - Dependency vulnerability scan
+      - name: Run npm audit
+        run: npm audit --audit-level=low
+
+      # 🔎 SAST - Initialize CodeQL
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: javascript
 
-      # NEW step for CodeQL builds
+      # Build step for CodeQL
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
 
