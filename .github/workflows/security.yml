@@ -74,13 +74,12 @@ jobs:
 
       # TruffleHog scans only the diff in the PR (fast)
       - name: TruffleHog (PR diff)
-        uses: trufflesecurity/trufflehog@v3
+        uses: trufflesecurity/trufflehog@main   # <-- FIX: was @v3
         with:
           path: .
           base: ${{ github.event.pull_request.base.sha }}
           head: ${{ github.event.pull_request.head.sha }}
           extra_args: --only-verified
-
 
   # --- Optional: container image scan (only runs if a Dockerfile exists)
   container-scan:
