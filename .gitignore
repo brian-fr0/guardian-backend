@@ -38,6 +38,6 @@ secrets/
 *.key
 *.pfx
 
-
+# --- Test coverage output (NYC/Istanbul) ---
 .nyc_output/
 coverage/
