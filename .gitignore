@@ -37,3 +37,7 @@ secrets/
 *.pem
 *.key
 *.pfx
+
+
+.nyc_output/
+coverage/
